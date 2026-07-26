@@ -1,0 +1,20 @@
+Windows Registry Editor Version 5.00
+
+; CIS Google Chrome Benchmark demonstration baseline.
+; Review this file before importing. Some settings may affect user workflows.
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome]
+"SafeBrowsingProtectionLevel"=dword:00000001
+"DownloadRestrictions"=dword:00000001
+"PasswordManagerEnabled"=dword:00000000
+"AutofillAddressEnabled"=dword:00000000
+"AutofillCreditCardEnabled"=dword:00000000
+"DefaultGeolocationSetting"=dword:00000002
+"DefaultNotificationsSetting"=dword:00000002
+"DefaultPopupsSetting"=dword:00000002
+"BlockThirdPartyCookies"=dword:00000001
+"BrowserGuestModeEnabled"=dword:00000000
+"QuicAllowed"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist]
+"1"="*"

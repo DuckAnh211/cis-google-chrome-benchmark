@@ -1,92 +1,130 @@
-# CIS Google Chrome Benchmark Security Assessment
+<div align="center">
+  <h1>CIS Google Chrome Benchmark Security Assessment</h1>
+  <p>
+    Browser hardening project with a final report, benchmark control mapping,
+    PowerShell audit scripts, and a Windows policy baseline.
+  </p>
+</div>
 
-Security configuration review project based on the CIS Google Chrome Benchmark. The work focuses on browser hardening, policy-based security controls, risk documentation, and practical recommendations for reducing attack surface in an enterprise browser environment.
+## Overview
+
+This repository presents a practical security assessment project based on the CIS Google Chrome Benchmark. It turns the report topic into a small, runnable toolkit for checking Chrome enterprise policies on Windows and documenting browser hardening evidence.
+
+The project is designed for portfolio review: a recruiter or reviewer can see the final report, the assessment methodology, the policy baseline, and the scripts used to support the benchmark review.
 
 ## Project Snapshot
 
 | Item | Details |
 | --- | --- |
-| Project type | Security benchmark assessment |
+| Project type | Security benchmark assessment and hardening toolkit |
 | Standard | CIS Google Chrome Benchmark |
-| Target | Google Chrome browser configuration and policy settings |
-| Deliverable | Final technical report |
-| Focus areas | Browser hardening, privacy controls, extension risk, safe browsing, update posture, policy enforcement |
+| Target | Google Chrome policy configuration on Windows |
+| Main deliverable | [Final PDF report](docs/Nhom05_FinalReport.pdf) |
+| Code deliverables | PowerShell audit script, hardening script, JSON baseline, registry template |
+| Focus areas | Safe browsing, downloads, credentials, extensions, privacy, site permissions, profile control, network behavior |
 
-## Final Report
+## Key Deliverables
 
-[View the full PDF report](docs/Nhom05_FinalReport.pdf)
+| Deliverable | Path | Purpose |
+| --- | --- | --- |
+| Final report | `docs/Nhom05_FinalReport.pdf` | Full project report |
+| Baseline controls | `config/cis-chrome-baseline.json` | Machine-readable Chrome policy baseline |
+| Audit script | `scripts/Test-ChromeCisBaseline.ps1` | Checks local Chrome policy state against the baseline |
+| Hardening script | `scripts/Set-ChromeCisBaseline.ps1` | Applies selected baseline settings through Windows Registry policy keys |
+| Registry template | `templates/chrome-cis-baseline.reg` | Manual review/import version of the baseline |
+| Control mapping | `docs/control-mapping.md` | Explains each control, policy key, expected value, and security rationale |
+| Runbook | `docs/runbook.md` | Step-by-step usage instructions |
+| Sample evidence | `evidence/sample-audit-result.json` | Example audit output for documentation |
 
-## Problem Statement
+## Assessment Workflow
 
-Google Chrome is widely used in personal and enterprise environments, which makes browser configuration an important part of endpoint security. Weak browser policies can increase exposure to phishing, malicious extensions, unsafe downloads, credential leakage, and privacy risks.
+```text
+CIS Benchmark
+    -> control mapping
+    -> JSON policy baseline
+    -> PowerShell audit
+    -> evidence output
+    -> final report
+```
 
-This project reviews Chrome security settings against CIS benchmark guidance and presents the assessment in a structured report that can be used for learning, documentation, and portfolio demonstration.
+## Quick Start
 
-## Objectives
+Audit the current machine's Chrome policy posture:
 
-- Understand the purpose of CIS browser security benchmarks
-- Review Chrome configuration areas that affect endpoint and user security
-- Map benchmark recommendations to security risks and expected outcomes
-- Document findings in a clear, professional technical report
-- Practice communicating security recommendations for a real-world audience
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\Test-ChromeCisBaseline.ps1
+```
 
-## Assessment Scope
+Save audit evidence locally:
 
-The project is centered on Google Chrome hardening concepts and benchmark-aligned configuration review. The reviewed areas include:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\Test-ChromeCisBaseline.ps1 -OutputPath .\evidence\audit-result.local.json
+```
 
-- Safe browsing and malicious site protection
-- Browser update and patch posture
-- Extension installation and permission control
-- Password manager and autofill behavior
-- Download and file handling risk
-- Privacy, tracking, and site permission settings
-- Policy enforcement through managed browser configuration
+Preview hardening changes:
 
-## Methodology
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\Set-ChromeCisBaseline.ps1 -WhatIf
+```
 
-1. Benchmark review
+Apply non-high-impact baseline controls from an elevated PowerShell session:
 
-   Studied the CIS Google Chrome Benchmark structure and identified security-relevant configuration categories.
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\Set-ChromeCisBaseline.ps1
+```
 
-2. Control analysis
+Read the full operational guide in [docs/runbook.md](docs/runbook.md).
 
-   Reviewed how each configuration area affects user safety, browser attack surface, and organization-level policy enforcement.
+## Security Areas Covered
 
-3. Risk interpretation
-
-   Connected insecure browser behaviors with likely security risks such as phishing exposure, credential leakage, unsafe extensions, and uncontrolled downloads.
-
-4. Recommendation writing
-
-   Documented practical hardening recommendations in a final report format suitable for technical review.
-
-## Skills Demonstrated
-
-- Security benchmark research
-- Browser hardening analysis
-- Endpoint security awareness
-- Technical documentation
-- Risk-based security reasoning
-- Policy and configuration review
-- Professional report writing
+- Safe Browsing protection
+- Dangerous download restrictions
+- Password manager and autofill controls
+- Extension installation governance
+- Default site permissions for location, notifications, and popups
+- Third-party cookie blocking
+- Guest mode restriction
+- QUIC protocol control for inspection-focused environments
 
 ## Repository Structure
 
 ```text
 .
-+-- README.md
-`-- docs/
-    `-- Nhom05_FinalReport.pdf
++-- config/
+|   `-- cis-chrome-baseline.json
++-- docs/
+|   +-- Nhom05_FinalReport.pdf
+|   +-- control-mapping.md
+|   `-- runbook.md
++-- evidence/
+|   `-- sample-audit-result.json
++-- scripts/
+|   +-- Set-ChromeCisBaseline.ps1
+|   `-- Test-ChromeCisBaseline.ps1
++-- templates/
+|   `-- chrome-cis-baseline.reg
++-- .gitignore
+`-- README.md
 ```
 
-## Portfolio Value
+## Skills Demonstrated
 
-This project can be presented as a cybersecurity documentation and assessment project. It shows the ability to read a recognized security benchmark, understand configuration-level risk, and communicate recommendations in a structured report.
+- Security benchmark research
+- Browser hardening and endpoint security analysis
+- Windows Registry policy configuration
+- PowerShell scripting for audit and remediation support
+- JSON-based control baseline design
+- Evidence collection and technical documentation
+- Risk-based recommendation writing
+
+## Portfolio Summary
+
+This project demonstrates the ability to translate a security benchmark into practical controls, write scripts that support assessment evidence, and communicate findings through a structured report.
 
 Suggested CV bullet:
 
-> Conducted a CIS Google Chrome Benchmark security assessment, reviewing browser hardening controls, configuration risks, and mitigation recommendations in a structured technical report.
+> Built a CIS Google Chrome Benchmark assessment toolkit with PowerShell scripts, JSON policy baselines, registry templates, and a final technical report documenting browser hardening risks and recommendations.
 
 ## Disclaimer
 
-This repository is for academic and portfolio purposes. The report is intended to demonstrate benchmark review, security reasoning, and documentation skills.
+This repository is for academic and portfolio purposes. Validate all policies against the official CIS Benchmark and organizational requirements before using them in production.

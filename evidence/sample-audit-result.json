@@ -1,0 +1,43 @@
+{
+  "tool": "CIS Chrome Benchmark Audit",
+  "generatedAt": "2026-07-26T18:30:00.0000000+07:00",
+  "computerName": "LAB-WINDOWS-01",
+  "baseline": "CIS Google Chrome Benchmark baseline",
+  "baselineVersion": "1.0.0",
+  "summary": {
+    "total": 12,
+    "pass": 8,
+    "fail": 4
+  },
+  "results": [
+    {
+      "id": "CHROME-SAFE-001",
+      "title": "Require Safe Browsing protection",
+      "category": "Safe browsing",
+      "severity": "High",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "CHROME-DOWNLOAD-001",
+      "title": "Restrict dangerous downloads",
+      "category": "Downloads",
+      "severity": "High",
+      "expected": 1,
+      "actual": null,
+      "status": "FAIL"
+    },
+    {
+      "id": "CHROME-EXT-001",
+      "title": "Block unmanaged extension installation by default",
+      "category": "Extensions",
+      "severity": "High",
+      "expected": [
+        "*"
+      ],
+      "actual": [],
+      "status": "FAIL"
+    }
+  ]
+}
